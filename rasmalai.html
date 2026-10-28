@@ -1,0 +1,418 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Rasmalai 🌙</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    overflow: hidden;
+    font-family: Georgia, serif;
+    background: linear-gradient(#05091f, #17264c, #49335d);
+    color: white;
+}
+
+.sky {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+}
+
+.stars {
+    position: absolute;
+    inset: 0;
+    background-image:
+        radial-gradient(white 1px, transparent 2px),
+        radial-gradient(#fff2c6 1px, transparent 2px),
+        radial-gradient(#ffffffaa 1px, transparent 2px);
+    background-size: 90px 90px, 130px 130px, 170px 170px;
+    animation: twinkle 4s infinite alternate;
+}
+
+@keyframes twinkle {
+    from { opacity: .4; }
+    to { opacity: 1; }
+}
+
+.moon {
+    position: absolute;
+    width: 125px;
+    height: 125px;
+    top: 9%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    background: #fff4c7;
+    box-shadow: 0 0 35px #fff0b9, 0 0 100px #ffe7a855;
+}
+
+.cloud {
+    position: absolute;
+    width: 230px;
+    height: 60px;
+    border-radius: 60px;
+    background: #aebbd477;
+    filter: blur(7px);
+    animation: moveCloud linear infinite;
+}
+
+.cloud::before,
+.cloud::after {
+    content: "";
+    position: absolute;
+    background: inherit;
+    border-radius: 50%;
+}
+
+.cloud::before {
+    width: 100px;
+    height: 90px;
+    top: -40px;
+    left: 30px;
+}
+
+.cloud::after {
+    width: 130px;
+    height: 100px;
+    top: -50px;
+    left: 100px;
+}
+
+.c1 { top: 20%; left: -300px; animation-duration: 45s; }
+.c2 { top: 35%; left: -400px; animation-duration: 60s; animation-delay: -20s; }
+.c3 { top: 12%; left: -350px; animation-duration: 55s; animation-delay: -35s; }
+.c4 { top: 48%; left: -400px; animation-duration: 70s; animation-delay: -10s; }
+
+@keyframes moveCloud {
+    from { margin-left: 0; }
+    to { margin-left: calc(100vw + 500px); }
+}
+
+.hill {
+    position: absolute;
+    bottom: -80px;
+    left: -10%;
+    width: 120%;
+    height: 230px;
+    background: #10172d;
+    border-radius: 50% 50% 0 0;
+}
+
+.content {
+    position: relative;
+    z-index: 5;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+}
+
+.small {
+    color: #ffe5b9;
+    letter-spacing: 4px;
+    font: 11px Arial, sans-serif;
+}
+
+h1 {
+    font-size: clamp(45px, 10vw, 85px);
+    font-weight: normal;
+    margin: 12px 0;
+    color: #fff0d0;
+    text-shadow: 0 0 25px #ff9fc9;
+}
+
+.subtitle {
+    color: #ead9f3;
+    margin-bottom: 25px;
+}
+
+.hint {
+    font: 13px Arial, sans-serif;
+    color: #dbe0ff;
+    margin-bottom: 20px;
+}
+
+.balloon {
+    position: relative;
+    width: 75px;
+    height: 100px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    background: radial-gradient(circle at 30% 25%, white, transparent 12%),
+                linear-gradient(135deg, #ffb4dc, #f23891, #ad216e);
+    box-shadow: 0 0 35px #ff75c577;
+    animation: float 2.5s ease-in-out infinite;
+}
+
+.balloon::after {
+    content: "";
+    position: absolute;
+    bottom: -45px;
+    left: 37px;
+    width: 1px;
+    height: 45px;
+    background: #ffffff99;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0) rotate(-4deg); }
+    50% { transform: translateY(-15px) rotate(4deg); }
+}
+
+.balloon.pop {
+    animation: pop .3s forwards;
+    pointer-events: none;
+}
+
+@keyframes pop {
+    to {
+        transform: scale(1.8);
+        opacity: 0;
+    }
+}
+
+.note {
+    display: none;
+    max-width: 520px;
+    width: 92%;
+    margin-top: 20px;
+    padding: 24px;
+    border: 1px solid #ffffff55;
+    border-radius: 20px;
+    background: #ffffff18;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 0 35px #0003;
+}
+
+.note.show {
+    display: block;
+    animation: reveal 1s ease forwards;
+}
+
+@keyframes reveal {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.note p {
+    font-size: clamp(17px, 4vw, 22px);
+    line-height: 1.7;
+}
+
+.next {
+    display: none;
+    margin-top: 20px;
+    padding: 12px 20px;
+    color: white;
+    background: #ffffff17;
+    border: 1px solid #ffffff88;
+    border-radius: 30px;
+    cursor: pointer;
+}
+
+.next.show {
+    display: block;
+    animation: reveal .7s ease;
+}
+
+#fireworks {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 10;
+    overflow: hidden;
+}
+
+.spark {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--color);
+    box-shadow: 0 0 10px var(--color);
+    animation: explode 1.5s ease-out forwards;
+}
+
+@keyframes explode {
+    from {
+        transform: translate(0, 0) scale(.5);
+        opacity: 1;
+    }
+    to {
+        transform: translate(var(--x), var(--y)) scale(1);
+        opacity: 0;
+    }
+}
+
+.footer {
+    position: fixed;
+    z-index: 6;
+    bottom: 15px;
+    width: 100%;
+    text-align: center;
+    font: 10px Arial, sans-serif;
+    color: #ffffff88;
+    letter-spacing: 2px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="sky">
+    <div class="stars"></div>
+    <div class="moon"></div>
+    <div class="cloud c1"></div>
+    <div class="cloud c2"></div>
+    <div class="cloud c3"></div>
+    <div class="cloud c4"></div>
+    <div class="hill"></div>
+</div>
+
+<div id="fireworks"></div>
+
+<main class="content">
+
+    <div class="small">A LITTLE SURPRISE FOR YOU</div>
+
+    <h1>Rasmalai ♡</h1>
+
+    <p class="subtitle">
+        Under the same moon, a little magic awaits...
+    </p>
+
+    <p class="hint" id="hint">
+        Tap the balloon to reveal your first surprise 🎈
+    </p>
+
+    <div id="balloonArea">
+        <button class="balloon" id="firstBalloon"
+                aria-label="Pop the first balloon"></button>
+    </div>
+
+    <div class="note" id="note1">
+        <p>
+            Dear Miss Rasmalai,<br>
+            I just want to say that ki...
+        </p>
+        <br>
+        <small>THERE IS ONE MORE SURPRISE FOR YOU ✨</small>
+    </div>
+
+    <button class="next" id="nextButton">
+        One more thing for you... 💌
+    </button>
+
+    <div class="note" id="note2">
+        <p>
+            I just want to say ki 15-20 min ruk lena,
+            me aarah hun, okay babuuuu 😝😝
+        </p>
+        <br>
+        <small>SEE YOU SOON, RASMALAI 🌙</small>
+    </div>
+
+</main>
+
+<div class="footer">
+    MADE WITH A LITTLE MAGIC ♡
+</div>
+
+<script>
+const fireworks = document.getElementById("fireworks");
+const hint = document.getElementById("hint");
+const balloonArea = document.getElementById("balloonArea");
+const nextButton = document.getElementById("nextButton");
+
+function launchFireworks(bursts = 12) {
+    const colors = [
+        "#ff9bc8",
+        "#ffe7a8",
+        "#b9c8ff",
+        "#ffffff",
+        "#a4f3ff",
+        "#d6a5ff"
+    ];
+
+    for (let b = 0; b < bursts; b++) {
+        const centerX = 5 + Math.random() * 90;
+        const centerY = 10 + Math.random() * 60;
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        const count = 32;
+
+        for (let i = 0; i < count; i++) {
+            const angle = (Math.PI * 2 * i) / count;
+            const distance = 40 + Math.random() * 110;
+            const spark = document.createElement("span");
+
+            spark.className = "spark";
+            spark.style.left = centerX + "%";
+            spark.style.top = centerY + "%";
+            spark.style.setProperty("--color", color);
+            spark.style.setProperty("--x", Math.cos(angle) * distance + "px");
+            spark.style.setProperty("--y", Math.sin(angle) * distance + "px");
+
+            fireworks.appendChild(spark);
+
+            setTimeout(() => spark.remove(), 1600);
+        }
+    }
+}
+
+document.getElementById("firstBalloon").onclick = function () {
+    this.classList.add("pop");
+    hint.textContent = "A little message, just for you...";
+
+    setTimeout(() => {
+        balloonArea.style.visibility = "hidden";
+        document.getElementById("note1").classList.add("show");
+        launchFireworks(14);
+        nextButton.classList.add("show");
+    }, 300);
+};
+
+nextButton.onclick = function () {
+    nextButton.classList.remove("show");
+    document.getElementById("note1").style.display = "none";
+
+    hint.textContent = "Tap the second balloon for your final surprise 🎈";
+
+    balloonArea.style.visibility = "visible";
+    balloonArea.innerHTML = `
+        <button class="balloon" id="secondBalloon"
+        aria-label="Pop the second balloon"
+        style="background:radial-gradient(circle at 30% 25%, white, transparent 12%),
+        linear-gradient(135deg,#c6d8ff,#718bff,#4644ba);
+        box-shadow:0 0 35px #9eacff77;">
+        </button>
+    `;
+
+    document.getElementById("secondBalloon").onclick = function () {
+        this.classList.add("pop");
+
+        setTimeout(() => {
+            balloonArea.style.display = "none";
+            document.getElementById("note2").classList.add("show");
+
+            hint.textContent = "Keep smiling, Rasmalai ♡";
+            launchFireworks(18);
+        }, 300);
+    };
+};
+</script>
+
+</body>
+</html>
